@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#17324d">
+  <meta name="description" content="A private, manual daily habit tracker stored on this device.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon-192.png" type="image/png">
+
+<title>Better Habits — Personal Transformation Tracker</title>
+<style>
+:root{--navy:#17324d;--green:#1fa66a;--mint:#e8f7ef;--blue:#eaf3ff;--purple:#f1eaff;--ink:#20364b;--muted:#718096;--line:#e3eaf0;--bg:#f4f7fa;--white:#fff;--red:#d95c5c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink)}
+.app{display:grid;grid-template-columns:220px 1fr;min-height:100vh}.side{background:var(--navy);color:white;padding:24px 16px;display:flex;flex-direction:column;gap:22px}.brand{display:flex;gap:12px;align-items:center}.avatar{background:#fff;color:var(--navy);font-weight:800;border-radius:50%;width:46px;height:46px;display:grid;place-items:center;font-size:20px}.brand strong{display:block;font-size:17px}.brand small{color:#c9d7e5}.nav{display:grid;gap:8px}.nav span{padding:12px;border-radius:12px;background:#ffffff10;color:#e9f2fa;font-size:14px}.side-note{margin-top:auto;color:#c9d7e5;line-height:1.6;font-size:13px}.main{padding:24px;max-width:1400px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}.top h1{margin:0;font-size:clamp(22px,3vw,30px)}.sub{color:var(--muted);margin-top:5px}.datebox{background:white;border:1px solid var(--line);border-radius:14px;padding:10px 12px;min-width:155px}.datebox label{font-size:11px;color:var(--muted);display:block}.datebox input{border:0;font:inherit;color:var(--ink);max-width:100%;outline:none}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.card{background:var(--white);border:1px solid var(--line);border-radius:17px;padding:17px;box-shadow:0 3px 12px #18365008}.stathead{display:flex;gap:10px;align-items:center}.emoji{width:42px;height:42px;display:grid;place-items:center;border-radius:50%;font-size:21px;background:var(--mint)}.stathead strong{display:block;font-size:14px}.stathead small{color:var(--muted)}.big{font-size:25px;font-weight:800;margin:14px 0 7px}.big small{font-size:13px;color:var(--muted);font-weight:500}.bar{height:8px;border-radius:20px;background:#eaf0f4;overflow:hidden}.bar span{height:100%;display:block;background:var(--green);border-radius:20px;transition:width .2s}.layout{display:grid;grid-template-columns:1.05fr .95fr;gap:14px;margin-top:14px}.section-title{font-weight:800;font-size:17px;margin:0 0 14px}.habit{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.habit:last-child{border-bottom:0}.habit input[type=checkbox]{width:22px;height:22px;accent-color:var(--green);flex-shrink:0}.habit-text{flex:1}.habit-text strong{display:block;font-size:14px}.habit-text small{color:var(--muted)}.pill{font-size:11px;border-radius:99px;background:var(--mint);color:#13784b;padding:5px 8px;white-space:nowrap}.tracker{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mini{background:#fbfdff;border:1px solid var(--line);border-radius:14px;padding:14px}.mini h3{font-size:14px;margin:0 0 10px}.mini label{font-size:12px;color:var(--muted);display:block;margin:9px 0 5px}.mini input,.mini select,.note textarea{width:100%;padding:10px;border:1px solid #d9e3eb;border-radius:10px;font:inherit;background:white;color:var(--ink)}.mini .hint{font-size:11px;color:var(--muted);margin-top:7px;line-height:1.4}.progress-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;font-size:12px}.weekly{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}.day{background:#f7fafc;border-radius:10px;padding:10px 4px;text-align:center;font-size:11px;color:var(--muted)}.day strong{display:block;color:var(--ink);font-size:13px;margin-bottom:6px}.dot{width:25px;height:25px;border:3px solid #dce5eb;border-radius:50%;margin:0 auto 5px}.dot.good{border-color:var(--green);background:var(--mint)}.actions{display:flex;flex-wrap:wrap;gap:8px}.btn{border:0;border-radius:11px;padding:11px 13px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;background:var(--green);color:white}.btn.secondary{background:#eaf3ff;color:#245b99}.btn.light{background:#f0f3f6;color:var(--ink)}.btn.danger{background:#fff0f0;color:#a23c3c}.note textarea{min-height:90px;resize:vertical}.footer{text-align:center;color:var(--muted);font-size:12px;padding:22px 8px}.smallmuted{color:var(--muted);font-size:12px}.notice{padding:11px 12px;border-radius:11px;background:#fff8e7;color:#795a17;font-size:12px;line-height:1.5;margin-top:12px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#17324d;color:white;padding:11px 16px;border-radius:12px;display:none;box-shadow:0 8px 24px #0002;z-index:5}
+@media(max-width:900px){.app{grid-template-columns:1fr}.side{padding:12px 16px;gap:0}.brand{margin-bottom:10px}.nav{display:flex;overflow:auto}.nav span{white-space:nowrap;padding:8px 10px}.side-note{display:none}.main{padding:16px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:1fr}}
+@media(max-width:520px){.main{padding:12px}.top{align-items:flex-start;flex-direction:column}.datebox{width:100%}.stats{gap:8px}.card{padding:13px}.big{font-size:22px}.tracker{grid-template-columns:1fr}.weekly{gap:3px}.day{padding:8px 1px}.day strong{font-size:11px}.dot{width:20px;height:20px}.pill{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><div class="avatar">B</div><div><strong>Better Habits</strong><small>Small steps. Stronger you.</small></div></div>
+    <div class="nav"><span>🏠 Today</span><span>☑️ Habits</span><span>📈 Progress</span><span>🎯 Goals</span></div>
+    <div class="side-note">You don't need a perfect day.<br><strong>Just keep showing up.</strong><br><br>🔒 Your entries stay in this browser on this device.</div>
+  </aside>
+  <main class="main">
+    <div class="top"><div><h1 id="greeting">Your day, one step at a time 👋</h1><div class="sub">Small steps. Big changes. You're building consistency.</div></div>
+      <div class="datebox"><label for="date">TRACKING DATE</label><input id="date" type="date"></div>
+    </div>
+    <section class="stats">
+      <div class="card"><div class="stathead"><div class="emoji">☕</div><div><strong>Tea / coffee</strong><small>Daily cups (target: 0)</small></div></div><div class="big"><span id="cupsBig">0</span><small> / 5 cups baseline</small></div><div class="bar"><span id="cupBar" style="width:100%"></span></div></div>
+      <div class="card"><div class="stathead"><div class="emoji" style="background:var(--blue)">👟</div><div><strong>Steps</strong><small>Daily goal: 12,000</small></div></div><div class="big"><span id="stepsBig">0</span><small> / 12,000</small></div><div class="bar"><span id="stepBar" style="width:0%;background:#438be8"></span></div></div>
+      <div class="card"><div class="stathead"><div class="emoji" style="background:var(--purple)">💪</div><div><strong>Workout</strong><small>Home workout counts</small></div></div><div class="big"><span id="workoutBig">0</span><small> min</small></div><div class="bar"><span id="workBar" style="width:0%;background:#9470e8"></span></div></div>
+      <div class="card"><div class="stathead"><div class="emoji" style="background:var(--blue)">💧</div><div><strong>Water</strong><small>Suggested goal: 2.5 L*</small></div></div><div class="big"><span id="waterBig">0</span><small> / 2.5 L</small></div><div class="bar"><span id="waterBar" style="width:0%;background:#438be8"></span></div></div>
+    </section>
+    <section class="layout">
+      <div class="card">
+        <h2 class="section-title">Today's checklist <span class="smallmuted" id="checkCount"></span></h2>
+        <div class="habit"><input type="checkbox" id="noTea"><div class="habit-text"><strong>No tea / coffee today</strong><small>Count only if you had zero caffeinated cups.</small></div><span class="pill">Main goal</span></div>
+        <div class="habit"><input type="checkbox" id="stepsGoal"><div class="habit-text"><strong>Reach my step goal</strong><small>12,000 steps, or your own realistic target.</small></div></div>
+        <div class="habit"><input type="checkbox" id="workGoal"><div class="habit-text"><strong>Move or exercise</strong><small>A walk or 10–25 min home workout.</small></div></div>
+        <div class="habit"><input type="checkbox" id="foodGoal"><div class="habit-text"><strong>Eat balanced meals</strong><small>Include vegetarian protein and vegetables.</small></div></div>
+        <div class="habit"><input type="checkbox" id="waterGoal"><div class="habit-text"><strong>Drink enough water</strong><small>Adjust to your needs, weather and medical advice.</small></div></div>
+        <div class="habit"><input type="checkbox" id="sleepGoal"><div class="habit-text"><strong>Protect my sleep</strong><small>Aim for a consistent bedtime and 7+ hours when possible.</small></div></div>
+        <div class="habit"><input type="checkbox" id="moodGoal"><div class="habit-text"><strong>Take care of my mind</strong><small>Pause, breathe, or write one thing that went well.</small></div></div>
+        <div class="notice">No guilt if a habit is missed. Record honestly and restart with the next choice. *Water needs vary by person.</div>
+      </div>
+      <div style="display:grid;gap:14px;align-content:start">
+        <div class="card"><h2 class="section-title">Log today's numbers</h2>
+          <div class="tracker">
+            <div class="mini"><h3>☕ Tea / coffee</h3><label for="cups">Cups today</label><input id="cups" type="number" min="0" max="30" step="1" value="0"><div class="hint">Include tea and coffee with milk/sugar. Goal: gradually reach zero.</div></div>
+            <div class="mini"><h3>👟 Steps</h3><label for="steps">Steps today</label><input id="steps" type="number" min="0" max="100000" step="100" value="0"><div class="hint">Enter from your phone's health/step app.</div></div>
+            <div class="mini"><h3>💪 Movement</h3><label for="workout">Workout / walk minutes</label><input id="workout" type="number" min="0" max="600" step="5" value="0"><div class="hint">A short home workout is a win.</div></div>
+            <div class="mini"><h3>💧 Water</h3><label for="water">Litres consumed</label><input id="water" type="number" min="0" max="10" step="0.1" value="0"><div class="hint">Enter your approximate total.</div></div>
+            <div class="mini"><h3>🌙 Sleep</h3><label for="sleep">Hours slept last night</label><input id="sleep" type="number" min="0" max="24" step="0.5" value="0"><div class="hint">Track patterns, not perfection.</div></div>
+            <div class="mini"><h3>🍬 Sugar</h3><label for="sugar">Sugar reduction today</label><select id="sugar"><option value="Not tracked">Not tracked</option><option value="Same as usual">Same as usual</option><option value="Reduced a little">Reduced a little</option><option value="No added sugar">No added sugar</option></select><div class="hint">Optional step towards your goal.</div></div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px"><button class="btn" id="saveBtn">Save today's status</button><button class="btn secondary" id="exportBtn">Export my data</button></div>
+        </div>
+        <div class="card"><h2 class="section-title">Your last 7 tracked days</h2><div class="weekly" id="weekly"></div><p class="smallmuted">A day counts as a strong day when you complete at least 5 of 7 habits. Past days update when you save them.</p></div>
+      </div>
+    </section>
+    <section class="layout">
+      <div class="card"><h2 class="section-title">Quick wins</h2><div class="actions"><button class="btn" id="minusCup">− 1 cup</button><button class="btn secondary" id="addSteps">+ 1,000 steps</button><button class="btn secondary" id="addWater">+ 250 ml water</button><button class="btn light" id="resetBtn">Reset today's form</button></div><p class="smallmuted">Quick buttons change the form; press “Save today's status” to store it.</p></div>
+      <div class="card note"><h2 class="section-title">Today's note</h2><textarea id="note" placeholder="How did you feel today? Any cravings, wins, stress, or plans for tomorrow?"></textarea><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:10px"><span class="smallmuted">Saved on this device</span><button class="btn" id="saveNote">Save note</button></div></div>
+    </section>
+    <div class="footer">Healthy habits today → a stronger, happier you tomorrow 💚<br>Personal prototype · local browser storage · not medical advice</div>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const $=id=>document.getElementById(id);
+const fields=['cups','steps','workout','water','sleep','sugar','noTea','stepsGoal','workGoal','foodGoal','waterGoal','sleepGoal','moodGoal','note'];
+const checks=['noTea','stepsGoal','workGoal','foodGoal','waterGoal','sleepGoal','moodGoal'];
+const todayISO=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+$('date').value=todayISO();
+$('greeting').textContent=(new Date().getHours()<12?'Good morning':new Date().getHours()<18?'Good afternoon':'Good evening')+' 👋';
+let data={};
+try{data=JSON.parse(localStorage.getItem('betterHabitsData')||'{}')}catch(e){data={}}
+function key(){return $('date').value||todayISO()}
+function current(){return Object.fromEntries(fields.map(f=>[f,$(f).type==='checkbox'?$(f).checked:$(f).value]))}
+function store(show=true){const v=current();v.cups=Math.max(0,Number(v.cups)||0);v.steps=Math.max(0,Number(v.steps)||0);v.workout=Math.max(0,Number(v.workout)||0);v.water=Math.max(0,Number(v.water)||0);v.sleep=Math.max(0,Number(v.sleep)||0);data[key()]=v;localStorage.setItem('betterHabitsData',JSON.stringify(data));render();if(show)toast('Saved for '+key());}
+function load(){const v=data[key()]||{};fields.forEach(f=>{if($(f).type==='checkbox')$(f).checked=!!v[f];else $(f).value=v[f]??(f==='sugar'?'Not tracked':f==='note'?'':0)});render()}
+function render(){
+ const cups=Number($('cups').value)||0,steps=Number($('steps').value)||0,work=Number($('workout').value)||0,water=Number($('water').value)||0;
+ $('cupsBig').textContent=cups;$('stepsBig').textContent=steps.toLocaleString('en-IN');$('workoutBig').textContent=work;$('waterBig').textContent=water.toFixed(1);
+ $('cupBar').style.width=Math.max(0,100-Math.min(cups,5)/5*100)+'%';$('stepBar').style.width=Math.min(100,steps/12000*100)+'%';$('workBar').style.width=Math.min(100,work/25*100)+'%';$('waterBar').style.width=Math.min(100,water/2.5*100)+'%';
+ $('noTea').checked=cups===0?$('noTea').checked:false;
+ $('stepsGoal').checked=steps>=12000;$('workGoal').checked=work>=20;$('waterGoal').checked=water>=2.5;
+ const n=checks.filter(c=>$(c).checked).length;$('checkCount').textContent=`${n} of 7 completed`;
+ const days=[];for(let i=6;i>=0;i--){let d=new Date(key()+'T12:00:00');d.setDate(d.getDate()-i);let k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;let v=data[k];let count=v?checks.filter(c=>v[c]===true || (c==='noTea'&&Number(v.cups)===0)||(c==='stepsGoal'&&Number(v.steps)>=12000)||(c==='workGoal'&&Number(v.workout)>=20)||(c==='waterGoal'&&Number(v.water)>=2.5)).length:0;days.push({d,k,count,tracked:!!v})}
+ $('weekly').innerHTML=days.map(x=>`<div class="day"><strong>${x.d.toLocaleDateString('en-US',{weekday:'short'})}</strong><div class="dot ${x.tracked&&x.count>=5?'good':''}"></div>${x.tracked?x.count+'/7':'—'}</div>`).join('');
+}
+function toast(t){const el=$('toast');el.textContent=t;el.style.display='block';setTimeout(()=>el.style.display='none',2200)}
+$('saveBtn').addEventListener('click',()=>store());
+$('saveNote').addEventListener('click',()=>store());
+$('date').addEventListener('change',load);
+['cups','steps','workout','water','sleep','sugar'].forEach(id=>$(id).addEventListener('input',()=>{if(id==='cups')$('noTea').checked=Number($('cups').value)===0;if(id==='steps')$('stepsGoal').checked=Number($('steps').value)>=12000;if(id==='workout')$('workGoal').checked=Number($('workout').value)>=20;if(id==='water')$('waterGoal').checked=Number($('water').value)>=2.5;render()}));
+checks.forEach(id=>$(id).addEventListener('change',()=>{if(id==='noTea'&&$('noTea').checked)$('cups').value=0;render()}));
+$('minusCup').addEventListener('click',()=>{$('cups').value=Math.max(0,(Number($('cups').value)||0)-1);$('noTea').checked=Number($('cups').value)===0;render()});
+$('addSteps').addEventListener('click',()=>{$('steps').value=(Number($('steps').value)||0)+1000;$('stepsGoal').checked=Number($('steps').value)>=12000;render()});
+$('addWater').addEventListener('click',()=>{$('water').value=((Number($('water').value)||0)+0.25).toFixed(2);$('waterGoal').checked=Number($('water').value)>=2.5;render()});
+$('resetBtn').addEventListener('click',()=>{if(confirm('Reset the form for this date? Saved data will remain until you save the reset.')){fields.forEach(f=>{if($(f).type==='checkbox')$(f).checked=false;else $(f).value=f==='sugar'?'Not tracked':f==='note'?'':0});render()}});
+$('exportBtn').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='better-habits-backup.json';a.click();URL.revokeObjectURL(url);toast('Backup exported')});
+load();
+</script>
+<script>
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+}
+</script>
+</body>
+</html>
